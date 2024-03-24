@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.js": "/match-pic/static/js/main.1905c51a.js",
-    "static/media/original.jpg": "/match-pic/static/media/original.e95d9c36f8e5eb3c8932.jpg",
-    "static/media/i.jpg": "/match-pic/static/media/i.dea9190d467e15c6a650.jpg",
-    "static/media/g.jpg": "/match-pic/static/media/g.6a724c705b65a0e2f2d1.jpg",
-    "static/media/h.jpg": "/match-pic/static/media/h.b299d3b40cd7904b5a39.jpg",
-    "static/media/e.jpg": "/match-pic/static/media/e.e4cb1feaa36134285dc3.jpg",
-    "static/media/f.jpg": "/match-pic/static/media/f.fc358c31cc636d4a3cfe.jpg",
-    "static/media/d.jpg": "/match-pic/static/media/d.3f9d3663966be14e25e7.jpg",
-    "static/media/b.jpg": "/match-pic/static/media/b.c07868ddc99620a08a8b.jpg",
-    "static/media/a.jpg": "/match-pic/static/media/a.178409430854a643a019.jpg",
-    "static/media/c.jpg": "/match-pic/static/media/c.16730ff6092dcb3a5104.jpg",
-    "index.html": "/match-pic/index.html",
-    "main.1905c51a.js.map": "/match-pic/static/js/main.1905c51a.js.map"
+    "main.js": "/Match-pic/static/js/main.acd535dd.js",
+    "static/media/original.jpg": "/Match-pic/static/media/original.e95d9c36f8e5eb3c8932.jpg",
+    "static/media/i.jpg": "/Match-pic/static/media/i.dea9190d467e15c6a650.jpg",
+    "static/media/g.jpg": "/Match-pic/static/media/g.6a724c705b65a0e2f2d1.jpg",
+    "static/media/h.jpg": "/Match-pic/static/media/h.b299d3b40cd7904b5a39.jpg",
+    "static/media/e.jpg": "/Match-pic/static/media/e.e4cb1feaa36134285dc3.jpg",
+    "static/media/f.jpg": "/Match-pic/static/media/f.fc358c31cc636d4a3cfe.jpg",
+    "static/media/d.jpg": "/Match-pic/static/media/d.3f9d3663966be14e25e7.jpg",
+    "static/media/b.jpg": "/Match-pic/static/media/b.c07868ddc99620a08a8b.jpg",
+    "static/media/a.jpg": "/Match-pic/static/media/a.178409430854a643a019.jpg",
+    "static/media/c.jpg": "/Match-pic/static/media/c.16730ff6092dcb3a5104.jpg",
+    "index.html": "/Match-pic/index.html",
+    "main.acd535dd.js.map": "/Match-pic/static/js/main.acd535dd.js.map"
   },
   "entrypoints": [
-    "static/js/main.1905c51a.js"
+    "static/js/main.acd535dd.js"
   ]
 }
