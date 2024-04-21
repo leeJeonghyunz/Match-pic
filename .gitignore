@@ -9,6 +9,7 @@
 
 # testing
 /coverage
+/src/practice.jsx
 
 # production
 /build

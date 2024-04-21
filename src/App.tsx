@@ -1,76 +1,108 @@
-import { useEffect } from "react";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
-import original from "./img/original.jpg";
 import Boards from "./components/Boards";
 import Title from "./components/title";
-import { cardState, shuffledCardState } from "./atoms";
+import { IToDoState, cardState, isStartAtom, shuffledCardState } from "./atoms";
+import Picture from "./components/Pictures";
+import { useMediaQuery } from "react-responsive";
 
-const Body = styled.div`
+const Body = styled.div<{ isPc: boolean }>`
   display: flex;
+  flex-direction: ${(props) => (!props.isPc ? "column" : "")};
   justify-content: center;
   align-items: center;
 `;
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ isPc: boolean }>`
   background-color: #f6e9fb;
   height: 100vh;
-`;
-
-const Img = styled.img`
-  height: 100%;
-  width: 100%;
-`;
-
-const CompleteImgBox = styled.div`
-  width: 100px;
-  height: 100px;
-  position: relative;
-  top: 50px;
-  left: 100px;
-  border: 5px dashed green;
+  display: ${(props) => (!props.isPc ? "flex" : "")};
+  flex-direction: ${(props) => (!props.isPc ? "column" : "")};
 `;
 
 const Frame = styled.div`
   display: flex;
-  height: 30rem;
+  height: 480px;
+  width: 760px;
   border: 5px dashed green;
   overflow: hidden;
 `;
 
-function App() {
-  const [card, setCard] = useRecoilState(cardState);
+const EtcWrapper = styled.div<{ isPc: boolean }>`
+  display: flex;
+  flex-direction: column;
+  position: ${(props) => (!props.isPc ? "" : "relative")};
+  top: ${(props) => (!props.isPc ? "" : "35px")};
+  left: ${(props) => (!props.isPc ? "" : "150px")};
+  justify-content: space-between;
+  align-items: center;
+  margin-top: ${(props) => (!props.isPc ? "20px" : "")};
+`;
 
+function App() {
+  const isPc = useMediaQuery({ query: "(min-width: 1024px)" });
+
+  const [card, setCard] = useRecoilState(cardState);
+  const [isStartState, setIsStartState] = useRecoilState(isStartAtom);
   const shuffledCards = useRecoilValue(shuffledCardState);
 
-  useEffect(() => {
-    // Trigger shuffling when the component mounts
-    setCard(shuffledCards);
-  }, []); // Empty dependency array ensures this effect runs only once on mount
-
-  useEffect(() => {
-    // 상태 변경 감지 후 조건 확인
-    if (
-      card.one[0].index === 1 &&
-      card.one[1].index === 2 &&
-      card.one[2].index === 3 &&
-      card.two[0].index === 4 &&
-      card.two[1].index === 5 &&
-      card.two[2].index === 6 &&
-      card.three[0].index === 7 &&
-      card.three[1].index === 8 &&
-      card.three[2].index === 9
-    ) {
-      // 조건이 충족되면 알림 표시
-      setTimeout(() => {
-        alert("Complete!!");
-      }, 1000);
+  function shuffleArray(array: string[]) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
     }
-  }, [card]);
+    return array;
+  }
+
+  const changeOrder = () => {
+    setCard((prevState) => {
+      // 이전 상태 복제
+      const newState = { ...prevState };
+
+      // key 배열 생성 및 섞기
+      const keys: string[] = Object.keys(newState);
+      const keyMappings = ["one", "two", "three"]; // 변경할 이름.
+      const shuffledKeys = shuffleArray(keys);
+
+      // 새로운 객체 생성
+      const newCardState: IToDoState = {};
+      shuffledKeys.forEach((key, index) => {
+        newCardState[keyMappings[index]] = newState[key]; // newCardState에 key 값을 keyMappings의 요소들로 하고 랜덤으로 나온 newState의 key값을 집어 넣음.
+      });
+      return newCardState;
+    });
+  };
+
+  if (
+    isStartState &&
+    JSON.stringify(Object.keys(card)) ===
+      JSON.stringify(["one", "two", "three"]) &&
+    card.one[0].index === 1 &&
+    card.one[1].index === 2 &&
+    card.one[2].index === 3 &&
+    card.two[0].index === 4 &&
+    card.two[1].index === 5 &&
+    card.two[2].index === 6 &&
+    card.three[0].index === 7 &&
+    card.three[1].index === 8 &&
+    card.three[2].index === 9
+  ) {
+    // 조건이 충족되면 알림 표시
+    setIsStartState(false);
+    setTimeout(() => {
+      alert("Complete!!");
+    }, 1000);
+  }
+
+  const onClickBtn = () => {
+    setCard(shuffledCards);
+    changeOrder();
+    setIsStartState(true);
+  };
 
   const onDragEnd = (info: DropResult) => {
-    const { destination, draggableId, source } = info;
+    const { destination, source } = info;
     // 목적지가 없다면 그냥 종료.
     if (!destination) return;
 
@@ -110,9 +142,9 @@ function App() {
 
   return (
     <>
-      <Wrapper>
+      <Wrapper isPc={isPc}>
         <Title></Title>
-        <Body>
+        <Body isPc={isPc}>
           <DragDropContext onDragEnd={onDragEnd}>
             <Frame>
               {Object.keys(card).map((boardId) => (
@@ -120,9 +152,9 @@ function App() {
               ))}
             </Frame>
           </DragDropContext>
-          <CompleteImgBox>
-            <Img src={original} />
-          </CompleteImgBox>
+          <EtcWrapper isPc={isPc}>
+            <Picture onClickBtn={onClickBtn} />
+          </EtcWrapper>
         </Body>
       </Wrapper>
     </>

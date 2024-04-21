@@ -1,14 +1,6 @@
 import { atom, selector } from "recoil";
 
-import a from "./img/a.jpg";
-import b from "./img/b.jpg";
-import c from "./img/c.jpg";
-import d from "./img/d.jpg";
-import e from "./img/e.jpg";
-import f from "./img/f.jpg";
-import g from "./img/g.jpg";
-import h from "./img/h.jpg";
-import i from "./img/i.jpg";
+import { originalImg } from "./img";
 
 export interface IToDo {
   index: number;
@@ -21,58 +13,20 @@ export interface IToDoState {
 
 export const cardState = atom<IToDoState>({
   key: "card",
-  default: {
-    one: [
-      {
-        index: 1,
-        img: a,
-      },
-      {
-        index: 2,
-        img: d,
-      },
+  default: originalImg,
+});
 
-      {
-        index: 3,
-        img: g,
-      },
-    ],
-    two: [
-      {
-        index: 4,
-        img: b,
-      },
-      {
-        index: 5,
-        img: e,
-      },
-      {
-        index: 6,
-        img: h,
-      },
-    ],
-    three: [
-      {
-        index: 7,
-        img: c,
-      },
-      {
-        index: 8,
-        img: f,
-      },
-      {
-        index: 9,
-        img: i,
-      },
-    ],
-  },
+export const isStartAtom = atom({
+  key: "start",
+  default: false,
 });
 
 function shuffleArray(array: any[]) {
-  const newArray = [...array];
+  const newArray = [...array]; // 받아온 array를 newArray에 복사
   for (let i = newArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    // i는 배열의 마지막 index부터 1씩 줄어들음.
+    const j = Math.floor(Math.random() * (i + 1)); // j는 0부터 i-1까지의 수
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]]; // newArray의 i번째와 j번째 교환
   }
   return newArray;
 }
@@ -83,9 +37,7 @@ export const shuffledCardState = selector<IToDoState>({
     const originalState = get(cardState);
     const shuffledState: IToDoState = {};
     for (const key in originalState) {
-      if (Object.prototype.hasOwnProperty.call(originalState, key)) {
-        shuffledState[key] = shuffleArray(originalState[key]);
-      }
+      shuffledState[key] = shuffleArray(originalState[key]);
     }
     return shuffledState;
   },

@@ -25,11 +25,14 @@
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.51.0",
     "react-query": "^3.39.3",
+    "react-responsive": "^10.0.0",
     "react-router-dom": "^5.3.4",
     "react-scripts": "5.0.1",
+    "react-slick": "^0.30.2",
     "recoil": "^0.7.7",
     "recoil-persist": "^5.1.0",
     "styled-components": "^6.1.8",
+    "swiper": "^11.1.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
@@ -64,5 +67,6 @@
     "@types/react-beautiful-dnd": "^13.1.8",
     "@types/react-helmet": "^6.1.11",
     "@types/react-router-dom": "^5.3.3"
-  }
+  },
+  "homepage": "https://leejeonghyunz.github.io/Match-pic"
 }
